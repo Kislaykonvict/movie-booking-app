@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose');
 const app = express();
 const serverConfig = require('./config/server.config');
+const { createRoutes } = require('./routes/parent.routes');
 
 app.use(express.json());
 
@@ -18,6 +19,7 @@ mongoose.connect('mongodb://localhost/movie_booking', {family : 4}, (err) => {
     }
 });
 
+createRoutes(app);
 
 app.get("/", (req, res) => {
     res.send(`"A Wink Away" Movie booking application`)       
