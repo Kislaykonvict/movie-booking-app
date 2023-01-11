@@ -31,8 +31,7 @@ const movieSchema = new mongoose.Schema({
     },
     language : {
         type : String,
-        required : true,
-        default : 'Hindi'
+        required : true
     },
     posterUrl : {
         type : String

@@ -48,8 +48,13 @@ exports.deleteMovie = async (req, res) => {
 
 
 exports.getAllMovie = async (req, res) => {
+
+    const criteria = {};
+    if(req.query.name) {
+        criteria.name = req.query.name
+    }
     try {
-        const movie = await Movie.find();
+        const movie = await Movie.find(criteria);
         console.log('all movies fetched successfully!');
         res.status(200).send(movie);
     } catch (error) {
@@ -63,16 +68,11 @@ exports.getAllMovie = async (req, res) => {
 
 
 
-exports.getMovie = async (req, res) => {
-    const criteria = {};
-    if(req.query.name) {
-        criteria.name = req.query.name
-    }
-    if(req.query.id) {
-        criteria._id = req.query.id
-    }
+exports.getMovieById = async (req, res) => {
+    
+    const reqId = req.params.id
     try {
-        const movie = await Movie.findOne(criteria);
+        const movie = await Movie.findOne({_id : reqId});
         if(!movie) {
             return res.status(404).send({
                 message : `Movie not found!`
